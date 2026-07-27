@@ -11,22 +11,23 @@ import { RepoAnalyzerPanel } from './components/RepoAnalyzerPanel';
 import { ProfileJudgePanel } from './components/ProfileJudgePanel';
 import { PvPBattlePanel } from './components/PvPBattlePanel';
 import { GithubWrappedPanel } from './components/GithubWrappedPanel';
+import { GitCommitHelper } from './components/GitCommitHelper';
 import { characterProfile } from './data/character';
 import type { DeveloperProfile } from './types/profile';
 
 function App() {
   const [profile, setProfile] = useState<DeveloperProfile | any>(characterProfile);
-  const [activeTab, setActiveTab] = useState<'overview' | 'readme' | 'repo' | 'judge' | 'pvp' | 'wrapped'>('overview');
-  const [isLoaded, setIsLoaded] = useState<boolean>(false);
-  const [usernameInput, setUsernameInput] = useState<string>('');
+  const [activeTab, setActiveTab] = useState<'overview' | 'judge' | 'readme' | 'git-commit' | 'repo' | 'pvp' | 'wrapped'>('judge');
+  const [usernameInput, setUsernameInput] = useState<string>('octocat');
   const [loading, setLoading] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>('');
 
   // Force GitHub Dark Theme
   document.body.className = 'theme-github-dark';
 
-  const handleGenerateProfile = async () => {
-    if (!usernameInput.trim()) {
+  const handleGenerateProfile = async (targetUser?: string) => {
+    const userToFetch = targetUser || usernameInput;
+    if (!userToFetch.trim()) {
       setErrorMessage('Please enter a GitHub username.');
       return;
     }
@@ -34,12 +35,10 @@ function App() {
     setLoading(true);
     setErrorMessage('');
 
-    let sanitizedUsername = usernameInput.trim();
-    // Extract username if user pasted a full GitHub URL
+    let sanitizedUsername = userToFetch.trim();
     if (sanitizedUsername.includes('github.com/')) {
       sanitizedUsername = sanitizedUsername.split('github.com/')[1].split('/')[0];
     }
-    // Remove @ if they typed @username
     if (sanitizedUsername.startsWith('@')) {
       sanitizedUsername = sanitizedUsername.slice(1);
     }
@@ -55,22 +54,11 @@ function App() {
       const currentProfile = await response.json();
 
       setProfile(currentProfile);
-      setIsLoaded(true);
-      setActiveTab('overview');
     } catch (err: any) {
       console.error(err);
-      
       const msg = err.message || '';
       if (msg.includes('404') || msg.includes('Not Found')) {
-        const roasts = [
-          "404: Skill not found. Did you type that right?",
-          "This user doesn't exist. Much like your unit tests.",
-          "Are you sure they are a developer? GitHub has never heard of them.",
-          "User not found. Maybe they got fired and deleted their account.",
-          "404. Let's pretend that was a typo and not you hallucinating a friend."
-        ];
-        const randomRoast = roasts[Math.floor(Math.random() * roasts.length)];
-        setErrorMessage(randomRoast);
+        setErrorMessage(`User "${sanitizedUsername}" not found on GitHub. Check spelling or try a preset below!`);
       } else {
         setErrorMessage(msg || 'Error compiling profile data.');
       }
@@ -79,209 +67,222 @@ function App() {
     }
   };
 
-  const handleSandboxDemo = () => {
-    // The sandbox character profile is RPG typed, so for the new layout, we might need to mock a bit.
-    const mockProfile: DeveloperProfile = {
-      login: 'sandbox-user',
-      name: 'Sandbox User',
-      title: 'Localhost Legend',
-      avatarUrl: 'https://github.com/octocat.png',
-      bio: 'I test things in production.',
-      location: '127.0.0.1',
-      followers: 42,
-      following: 0,
-      totalCommits: 9001,
-      totalPRs: 0,
-      totalStars: 5,
-      streak: 1,
-      grade: 'D',
-      activityRoast: 'You made 9001 commits to master. Your team hates you.',
-      toxicTraits: ['Force pushes to main.', 'Leaves commented out code everywhere.'],
-      pinnedTrash: [
-        { name: 'test-repo', stars: 0, language: 'JavaScript', description: 'test', roast: 'A literal test repo. Groundbreaking.' }
-      ],
-    };
-    setProfile(mockProfile);
-    setIsLoaded(true);
+  const handlePresetSelect = (username: string) => {
+    setUsernameInput(username);
+    handleGenerateProfile(username);
   };
 
   return (
     <div className="github-layout-root" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', overflowX: 'hidden', width: '100%' }}>
-      
-      {/* 1. GATED Streamlined Login Screen */}
-      {!isLoaded ? (
-        <main style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flex: 1, padding: '16px' }}>
-          <div className="card" style={{ maxWidth: '480px', width: '100%', padding: '24px', border: '1px solid var(--line-strong)', borderRadius: '6px', backgroundColor: 'var(--bg-panel)', boxShadow: 'var(--shadow-neon)' }}>
-            
-            <div style={{ marginBottom: '24px', textAlign: 'center' }}>
-              <div style={{ fontSize: '3rem', marginBottom: '8px' }}>🤡</div>
-              <h1 style={{ fontSize: '1.62rem', fontWeight: 700, margin: '0 0 8px 0', color: 'var(--text-main)' }}>
-                Developer Roasting Profile Generator
-              </h1>
-              <p className="subtle" style={{ fontSize: '0.88rem', lineHeight: 1.4 }}>
-                Let us brutally roast your GitHub activity and generate a sarcastic profile and README.
-              </p>
-            </div>
-
-            {errorMessage && (
-              <div className="card" style={{ borderColor: 'var(--git-red)', background: 'rgba(248, 81, 73, 0.1)', color: 'var(--git-red)', padding: '12px', marginBottom: '16px', fontSize: '0.82rem', fontWeight: 600 }}>
-                ⚠️ ERROR: {errorMessage}
-              </div>
-            )}
-
-            {loading && (
-              <div className="card loading-overlay" style={{ marginBottom: '16px' }}>
-                <div className="spinner"></div>
-                <span style={{ fontSize: '0.85rem' }}>Judging your terrible code...</span>
-              </div>
-            )}
-
-            <div className="auth-stack" style={{ width: '100%' }}>
-              
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                <label style={{ fontSize: '0.8rem', fontWeight: 600, color: 'var(--text-main)' }}>GitHub Username</label>
-                <input
-                  type="text"
-                  placeholder="Enter username (e.g. torvalds)"
-                  value={usernameInput}
-                  onChange={(e) => setUsernameInput(e.target.value)}
-                  style={{ height: '38px', padding: '0 12px' }}
-                  aria-label="GitHub Username"
-                />
-              </div>
-
-              <button
-                className="primary-assemble"
-                onClick={handleGenerateProfile}
-                type="button"
-                style={{ height: '40px', marginTop: '20px' }}
-              >
-                Generate Roast Profile
-              </button>
-
-              <div className="divider-row" aria-hidden="true" style={{ margin: '14px 0' }}>
-                <span></span>
-                <strong>OR</strong>
-                <span></span>
-              </div>
-
-              <button
-                onClick={handleSandboxDemo}
-                className="theme-btn"
-                style={{ width: '100%', height: '38px', background: 'transparent' }}
-                type="button"
-              >
-                🚀 Browse Sandbox with Demo Profile
-              </button>
-
-            </div>
+      {/* GitHub Top Navigation Bar */}
+      <header style={{
+        backgroundColor: '#161b22',
+        padding: '12px 24px',
+        borderBottom: '1px solid #30363d',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        flexWrap: 'wrap',
+        gap: '16px',
+        position: 'sticky',
+        top: 0,
+        zIndex: 100
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer' }} onClick={() => setActiveTab('judge')}>
+          <svg height="32" viewBox="0 0 16 16" width="32" fill="#ffffff">
+            <path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"></path>
+          </svg>
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <span style={{ fontSize: '1.25rem', fontWeight: 800, color: '#f0f6fc', letterSpacing: '-0.5px' }}>
+              GitRoast 🔥
+            </span>
+            <span style={{ fontSize: '0.7rem', color: '#8b949e', fontWeight: 500 }}>
+              Profile Roaster & Open Source Mentor
+            </span>
           </div>
-        </main>
-      ) : (
-        
-        /* 2. UNLOCKED GITHUB-STYLE DASHBOARD PAGE */
-        <>
-          {/* Top Navbar */}
-          <header style={{ backgroundColor: '#161b22', padding: '16px 32px', borderBottom: '1px solid var(--line-strong)', display: 'flex', alignItems: 'center' }}>
-            <div style={{ fontSize: '24px', fontWeight: 700, color: 'var(--text-main)', cursor: 'pointer' }} onClick={() => setIsLoaded(false)}>
-              🤡 GitHub Roaster
-            </div>
-          </header>
+        </div>
 
-          <div style={{ display: 'flex', justifyContent: 'center', backgroundColor: '#0d1117' }}>
-            <div style={{ width: '100%', maxWidth: '1280px', display: 'flex', flexDirection: 'row', padding: '32px 24px', gap: '32px' }}>
-              
-              {/* Left Sidebar */}
-              <div style={{ width: '296px', flexShrink: 0 }}>
-                <SidebarProfile profile={profile} />
-              </div>
-
-              {/* Main Content */}
-              <div style={{ flex: 1, minWidth: 0 }}>
-                
-                {/* Tab Navigation */}
-                <div style={{ borderBottom: '1px solid var(--line-strong)', marginBottom: '24px', display: 'flex', gap: '16px', overflowX: 'auto', whiteSpace: 'nowrap' }}>
-                  <button
-                    style={{ background: 'none', border: 'none', padding: '8px 16px', color: activeTab === 'overview' ? 'var(--text-main)' : 'var(--text-muted)', borderBottom: activeTab === 'overview' ? '2px solid var(--git-orange)' : '2px solid transparent', cursor: 'pointer', fontSize: '14px', fontWeight: 600 }}
-                    onClick={() => setActiveTab('overview')}
-                  >
-                    Overview
-                  </button>
-                  <button
-                    style={{ background: 'none', border: 'none', padding: '8px 16px', color: activeTab === 'readme' ? 'var(--text-main)' : 'var(--text-muted)', borderBottom: activeTab === 'readme' ? '2px solid var(--git-orange)' : '2px solid transparent', cursor: 'pointer', fontSize: '14px', fontWeight: 600 }}
-                    onClick={() => setActiveTab('readme')}
-                  >
-                    README Generator
-                  </button>
-                  <button
-                    style={{ background: 'none', border: 'none', padding: '8px 16px', color: activeTab === 'repo' ? 'var(--text-main)' : 'var(--text-muted)', borderBottom: activeTab === 'repo' ? '2px solid var(--git-orange)' : '2px solid transparent', cursor: 'pointer', fontSize: '14px', fontWeight: 600 }}
-                    onClick={() => setActiveTab('repo')}
-                  >
-                    Repo Analyzer
-                  </button>
-                  <button
-                    style={{ background: 'none', border: 'none', padding: '8px 16px', color: activeTab === 'judge' ? 'var(--text-main)' : 'var(--text-muted)', borderBottom: activeTab === 'judge' ? '2px solid var(--git-orange)' : '2px solid transparent', cursor: 'pointer', fontSize: '14px', fontWeight: 600 }}
-                    onClick={() => setActiveTab('judge')}
-                  >
-                    Profile Judge
-                  </button>
-                  <button
-                    style={{ background: 'none', border: 'none', padding: '8px 16px', color: activeTab === 'pvp' ? 'var(--text-main)' : 'var(--text-muted)', borderBottom: activeTab === 'pvp' ? '2px solid var(--git-orange)' : '2px solid transparent', cursor: 'pointer', fontSize: '14px', fontWeight: 600 }}
-                    onClick={() => setActiveTab('pvp')}
-                  >
-                    PvP Battle
-                  </button>
-                  <button
-                    style={{ background: 'none', border: 'none', padding: '8px 16px', color: activeTab === 'wrapped' ? 'var(--text-main)' : 'var(--text-muted)', borderBottom: activeTab === 'wrapped' ? '2px solid var(--git-orange)' : '2px solid transparent', cursor: 'pointer', fontSize: '14px', fontWeight: 600 }}
-                    onClick={() => setActiveTab('wrapped')}
-                  >
-                    GitHub Wrapped
-                  </button>
-                </div>
-
-                {/* TAB 1: OVERVIEW */}
-                {activeTab === 'overview' && (
-                  <div>
-                    <SkillRadarChart profile={profile} />
-                    <PinnedTrash repositories={profile.pinnedTrash || []} />
-                    <ContributionGraph totalCommits={profile.totalCommits || 0} streak={profile.streak || 0} roast={profile.activityRoast || ''} />
-                    <ToxicTraits traits={profile.toxicTraits || []} />
-                    <ProfileCompletionTracker profile={profile} />
-                    <BadgeGenerator profile={profile} />
-                  </div>
-                )}
-
-                {/* TAB 2: README GENERATOR */}
-                {activeTab === 'readme' && (
-                  <ReadmePanel profile={profile} />
-                )}
-
-                {/* TAB 3: REPO ANALYZER */}
-                {activeTab === 'repo' && (
-                  <RepoAnalyzerPanel />
-                )}
-
-                {/* TAB 4: PROFILE JUDGE */}
-                {activeTab === 'judge' && (
-                  <ProfileJudgePanel profile={profile} />
-                )}
-
-                {/* TAB 5: PVP BATTLE */}
-                {activeTab === 'pvp' && (
-                  <PvPBattlePanel />
-                )}
-
-                {/* TAB 6: GITHUB WRAPPED */}
-                {activeTab === 'wrapped' && (
-                  <GithubWrappedPanel profile={profile} />
-                )}
-
-              </div>
-            </div>
+        {/* Global User Search & Demo Bar */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', flex: 1, maxWidth: '580px' }}>
+          <div style={{ position: 'relative', flex: 1, minWidth: '200px' }}>
+            <input
+              type="text"
+              placeholder="Enter GitHub username (e.g. torvalds, gaearon)..."
+              value={usernameInput}
+              onChange={(e) => setUsernameInput(e.target.value)}
+              onKeyDown={(e) => e.key === 'Enter' && handleGenerateProfile()}
+              style={{
+                width: '100%',
+                height: '34px',
+                padding: '0 12px 0 32px',
+                borderRadius: '6px',
+                border: '1px solid #30363d',
+                backgroundColor: '#0d1117',
+                color: '#c9d1d9',
+                fontSize: '0.85rem'
+              }}
+              aria-label="GitHub Username Search"
+            />
+            <span style={{ position: 'absolute', left: '10px', top: '8px', color: '#8b949e', fontSize: '0.85rem' }}>🔍</span>
           </div>
-        </>
+
+          <button
+            onClick={() => handleGenerateProfile()}
+            disabled={loading}
+            style={{
+              height: '34px',
+              padding: '0 14px',
+              borderRadius: '6px',
+              border: 'none',
+              backgroundColor: '#238636',
+              color: '#ffffff',
+              fontWeight: 600,
+              cursor: 'pointer',
+              fontSize: '0.82rem',
+              whiteSpace: 'nowrap'
+            }}
+          >
+            {loading ? 'Analyzing...' : '🔥 Roast Profile'}
+          </button>
+        </div>
+
+        {/* Preset quick buttons */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+          <span style={{ fontSize: '0.75rem', color: '#8b949e' }}>Presets:</span>
+          {['octocat', 'torvalds', 'gaearon'].map((user) => (
+            <button
+              key={user}
+              onClick={() => handlePresetSelect(user)}
+              style={{
+                background: '#21262d',
+                border: '1px solid #30363d',
+                color: '#58a6ff',
+                padding: '3px 8px',
+                borderRadius: '12px',
+                fontSize: '0.72rem',
+                cursor: 'pointer'
+              }}
+            >
+              @{user}
+            </button>
+          ))}
+        </div>
+      </header>
+
+      {errorMessage && (
+        <div style={{
+          backgroundColor: 'rgba(248, 81, 73, 0.15)',
+          borderBottom: '1px solid #f85149',
+          color: '#f85149',
+          padding: '10px 24px',
+          fontSize: '0.85rem',
+          textAlign: 'center',
+          fontWeight: 600
+        }}>
+          ⚠️ {errorMessage}
+        </div>
       )}
 
+      {/* Main Container */}
+      <div style={{ display: 'flex', justifyContent: 'center', backgroundColor: '#0d1117', flex: 1 }}>
+        <div style={{ width: '100%', maxWidth: '1380px', display: 'flex', flexDirection: 'row', padding: '24px', gap: '24px', flexWrap: 'wrap' }}>
+          
+          {/* Left Sidebar Profile */}
+          <div style={{ width: '296px', minWidth: '280px', flexShrink: 0 }}>
+            <SidebarProfile profile={profile} />
+          </div>
+
+          {/* Right Main Content */}
+          <div style={{ flex: 1, minWidth: 0 }}>
+            
+            {/* Nav Tabs */}
+            <div style={{
+              borderBottom: '1px solid #30363d',
+              marginBottom: '24px',
+              display: 'flex',
+              gap: '8px',
+              overflowX: 'auto',
+              whiteSpace: 'nowrap',
+              paddingBottom: '4px'
+            }}>
+              {[
+                { id: 'judge', label: '🔥 Profile Roast & Judge', icon: '⚖️' },
+                { id: 'readme', label: '📝 README Generator', icon: '📄' },
+                { id: 'git-commit', label: '💻 Git Commit Helper', icon: '💡' },
+                { id: 'overview', label: '📊 Combat Stats Overview', icon: '📈' },
+                { id: 'repo', label: '🔍 Open-Source Repo Audit', icon: '📦' },
+                { id: 'pvp', label: '⚔️ Profile PvP Battle', icon: '🎮' },
+                { id: 'wrapped', label: '🎁 GitHub Wrapped', icon: '✨' }
+              ].map(tab => (
+                <button
+                  key={tab.id}
+                  style={{
+                    background: activeTab === tab.id ? '#21262d' : 'transparent',
+                    border: '1px solid',
+                    borderColor: activeTab === tab.id ? '#30363d' : 'transparent',
+                    borderRadius: '6px',
+                    padding: '8px 14px',
+                    color: activeTab === tab.id ? '#f0f6fc' : '#8b949e',
+                    cursor: 'pointer',
+                    fontSize: '0.88rem',
+                    fontWeight: 600,
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    transition: 'all 0.15s ease'
+                  }}
+                  onClick={() => setActiveTab(tab.id as any)}
+                >
+                  {tab.label}
+                </button>
+              ))}
+            </div>
+
+            {/* TAB 1: PROFILE ROAST & JUDGE */}
+            {activeTab === 'judge' && (
+              <ProfileJudgePanel profile={profile} />
+            )}
+
+            {/* TAB 2: README GENERATOR */}
+            {activeTab === 'readme' && (
+              <ReadmePanel profile={profile} />
+            )}
+
+            {/* TAB 3: GIT COMMIT HELPER */}
+            {activeTab === 'git-commit' && (
+              <GitCommitHelper />
+            )}
+
+            {/* TAB 4: COMBAT STATS OVERVIEW */}
+            {activeTab === 'overview' && (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                <SkillRadarChart profile={profile} />
+                <PinnedTrash repositories={profile.pinnedTrash || []} />
+                <ContributionGraph totalCommits={profile.totalCommits || 0} streak={profile.streak || 0} roast={profile.activityRoast || ''} />
+                <ToxicTraits traits={profile.toxicTraits || []} />
+                <ProfileCompletionTracker profile={profile} />
+                <BadgeGenerator profile={profile} />
+              </div>
+            )}
+
+            {/* TAB 5: REPO ANALYZER */}
+            {activeTab === 'repo' && (
+              <RepoAnalyzerPanel />
+            )}
+
+            {/* TAB 6: PVP BATTLE */}
+            {activeTab === 'pvp' && (
+              <PvPBattlePanel />
+            )}
+
+            {/* TAB 7: GITHUB WRAPPED */}
+            {activeTab === 'wrapped' && (
+              <GithubWrappedPanel profile={profile} />
+            )}
+
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

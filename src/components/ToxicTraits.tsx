@@ -3,18 +3,42 @@ type ToxicTraitsProps = {
 };
 
 export function ToxicTraits({ traits }: ToxicTraitsProps) {
+  if (!traits || traits.length === 0) return null;
+
   return (
-    <div style={{ marginBottom: '24px' }}>
-      <h3 style={{ fontSize: '1rem', fontWeight: 400, marginBottom: '16px', color: 'var(--text-main)' }}>
-        Toxic Traits
+    <div style={{
+      background: '#161b22',
+      border: '1px solid #30363d',
+      borderRadius: '8px',
+      padding: '20px',
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '12px'
+    }}>
+      <h3 style={{ margin: 0, fontSize: '1rem', color: '#f0883e', display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <span>⚠️</span> Toxic Developer Traits Detected
       </h3>
-      <ul style={{ paddingLeft: '20px', margin: 0, color: 'var(--text-muted)' }}>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
         {traits.map((trait, index) => (
-          <li key={index} style={{ marginBottom: '8px', fontSize: '14px' }}>
-            {trait}
-          </li>
+          <span
+            key={index}
+            style={{
+              background: '#21262d',
+              border: '1px solid #30363d',
+              color: '#f0883e',
+              padding: '6px 12px',
+              borderRadius: '20px',
+              fontSize: '0.8rem',
+              fontWeight: 600,
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px'
+            }}
+          >
+            <span>🏷️</span> {trait}
+          </span>
         ))}
-      </ul>
+      </div>
     </div>
   );
 }

@@ -1,254 +1,121 @@
 <div align="center">
-  
-  <h1>Developer Roasting Profile Generator</h1>
-  
+  <img src="https://capsule-render.vercel.app/api?type=waving&height=220&color=0:0d1117,100:238636&text=GitRoast%20%F0%9F%94%A5&fontSize=50&fontColor=ffffff&animation=fadeIn&fontAlignY=35&descAlignY=55&desc=Playful%20GitHub%20Profile%20Roaster%20%26%20Open%20Source%20Mentor" alt="GitRoast Banner"/>
+
+  <h1>GitRoast 🔥 — Playful GitHub Profile Roaster & Open Source Mentor</h1>
+
   <p>
-    Turn your GitHub profile into a hilariously toxic roasting session,
-    then export a brutal <code>README.md</code> you can paste into your GitHub profile.
+    Turn your GitHub profile into a hilariously honest roasting session,
+    generate an impressive <code>README.md</code>, master conventional Git commits,
+    and audit open-source repositories for hackathons & recruiter impression.
   </p>
 
   <p>
-    <strong>GitHub stats → Brutal Roasts</strong> (commits, merged PRs, stars, streak) •
-    <strong>Toxic Traits Analyzer</strong> •
-    <strong>Contribution Graph of Shame</strong> •
-    <strong>README exporter</strong>
+    <strong>GitHub Stats → Playful Roasts</strong> •
+    <strong>Toxic Traits Badge Matrix</strong> •
+    <strong>Impression Grade (A+ to F)</strong> •
+    <strong>Interactive README Builder</strong> •
+    <strong>Git Commit Helper</strong>
   </p>
 
   <br />
 
-  <div>
-    <a href="https://github.com/goyaljiiiiii" target="_blank" rel="noreferrer" title="GitHub">
-      <svg width="36" height="36" viewBox="0 0 19 19" style="vertical-align:middle;">
-        <use href="/icons.svg#github-icon"></use>
-      </svg>
+  <div style="display: flex; gap: 8px; justify-content: center;">
+    <a href="https://github.com/nandinigoyaldev/Developer-rpg-profile-generator" target="_blank" rel="noreferrer">
+      <img src="https://img.shields.io/badge/GitHub-GitRoast-238636?style=for-the-badge&logo=github" alt="GitHub Repo"/>
     </a>
-    <a href="https://x.com/goyaljiiiiii" target="_blank" rel="noreferrer" title="X (Twitter)" style="margin-left:10px;">
-      <svg width="36" height="36" viewBox="0 0 19 19" style="vertical-align:middle;">
-        <use href="/icons.svg#x-icon"></use>
-      </svg>
+    <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
+      <img src="https://img.shields.io/badge/Vite-8.0-646CFF?style=for-the-badge&logo=vite" alt="Vite"/>
     </a>
-    <a href="https://linkedin.com/in/goyaljiiiiii" target="_blank" rel="noreferrer" title="LinkedIn" style="margin-left:10px;">
-      <svg width="36" height="36" viewBox="0 0 20 20" style="vertical-align:middle;">
-        <use href="/icons.svg#social-icon"></use>
-      </svg>
+    <a href="https://react.dev" target="_blank" rel="noreferrer">
+      <img src="https://img.shields.io/badge/React-19.0-61DAFB?style=for-the-badge&logo=react" alt="React 19"/>
     </a>
-    <a href="mailto:nandini.solutions.software@email.com" title="Email" style="margin-left:10px;">
-      <svg width="36" height="36" viewBox="0 0 20 20" style="vertical-align:middle;">
-        <use href="/icons.svg#social-icon"></use>
-      </svg>
+    <a href="https://www.typescriptlang.org/" target="_blank" rel="noreferrer">
+      <img src="https://img.shields.io/badge/TypeScript-6.0-3178C6?style=for-the-badge&logo=typescript" alt="TypeScript"/>
     </a>
-    <a href="https://youtube.com/self_taught_bob" target="_blank" rel="noreferrer" title="YouTube" style="margin-left:10px;">
-      <svg width="36" height="36" viewBox="0 0 20 20" style="vertical-align:middle;">
-        <use href="/icons.svg#documentation-icon"></use>
-      </svg>
-    </a>
-  </div>
-
-  <br />
-
-  <div style="max-width: 820px;">
-    <p style="margin:0;">
-      Built with <strong>React 19</strong>, <strong>TypeScript 6</strong>, <strong>Vite 8</strong>,
-      <strong>Node.js Serverless Functions</strong>, and <strong>Vanilla CSS</strong> using a custom neobrutalist / cyberpunk design system.
-    </p>
   </div>
 </div>
 
 ---
 
-## Quick start
+## 🌟 What is GitRoast?
 
-1. Enter a <strong>GitHub username</strong> (public mode) or sign in with GitHub (OAuth).
-2. The app fetches your profile, repository stats, PR merges, and contribution streak.
-3. Your character sheet is generated: <strong>class</strong>, <strong>rank</strong>, <strong>power level</strong>, a <strong>skill tree</strong>, and a <strong>quest log</strong>.
-4. Use <strong>README Generator</strong> to copy / download your themed <code>README.md</code>.
-5. Use <strong>Repo Analyzer</strong> to audit any public repository and get actionable advice to improve it.
-
----
-
-## Features (what you get)
-
-- <strong>GitHub OAuth & Public Search</strong>
-  - Secure login via <code>/api/github</code>
-  - Public fallback: type any username and generate instantly
-- <strong>RPG Dashboard</strong>
-  - Rank/guild identity panel
-  - Combat stats grid (commits, merged PRs, stars, streak)
-  - Achievement vault
-  - Quest board (repos mapped to locked/active/unlocked)
-  - Skill tree (language masteries + engineering lifecycle skills)
-  - Diagnostics report (strengths, gaps, next recommendations)
-- <strong>Dynamic Themes</strong>
-  - Gaming, Cute, Cloud, Cyberpunk, Minimalist
-- <strong>README.md Generator</strong>
-  - Renders themed markdown from your live stats
-  - Copy to clipboard or download as a <code>.md</code> file
-- <strong>Repository Analyzer</strong>
-  - Paste any GitHub URL to validate health, structure, and live deployment status
-  - Receive actionable guidance to improve discoverability and open-source standards
+**GitRoast** was born from a common challenge in open source: developers constantly ask:
+1. *"How to judge my GitHub profile?"* — **Profile Roaster & Grade Engine** evaluates your profile stats, bio, pinned repos, and commit streaks with playful roasts and actionable feedback.
+2. *"How to create a README like yours?"* — **Interactive README Generator** compiles your stats into customizable Markdown templates with live `.md` export.
+3. *"How to make my profile impressive?"* — **Impression Score Breakdown** gives category ratings (Bio, Activity, Repositories, Social) and step-by-step tips.
+4. *"How to do a commit?"* — **Git Commit Helper & CLI Simulator** guides beginners through Conventional Commits (`feat:`, `fix:`, `docs:`) with step-by-step terminal execution commands.
 
 ---
 
-## Socials & links
+## 🚀 Key Features
 
-<div>
-  <ul>
-    <li><a href="https://github.com/goyaljiiiiii" target="_blank" rel="noreferrer">GitHub</a></li>
-    <li><a href="https://x.com/goyaljiiiiii" target="_blank" rel="noreferrer">X (Twitter)</a></li>
-    <li><a href="https://linkedin.com/in/goyaljiiiiii" target="_blank" rel="noreferrer">LinkedIn</a></li>
-    <li><a href="mailto:nandini.solutions.software@email.com">Email</a></li>
-    <li><a href="https://youtube.com/self_taught_bob" target="_blank" rel="noreferrer">YouTube</a></li>
-  </ul>
-</div>
-
----
-
-## Tech stack
-
-- <strong>Frontend:</strong> React 19, TypeScript, Vite
-- <strong>Backend:</strong> Node.js serverless handlers (<code>/api/*</code>)
-- <strong>Styling:</strong> Vanilla CSS with a token-based design system (neobrutalist/cyberpunk)
-- <strong>UX:</strong> Theme-driven dashboard + live README export
+- <strong>🔥 Playful Profile Roaster</strong>
+  - Fetch any public GitHub username (or test with preset profiles like `@octocat`, `@torvalds`, `@gaearon`).
+  - Receive an Impression Grade (`A+` to `F`), custom headline roast, breakdown scores out of 100, and toxic trait badges.
+- <strong>📝 Impressive README Builder</strong>
+  - Render themed markdown READMEs automatically populated with live stats.
+  - One-click copy or `.md` file download.
+- <strong>💡 Interactive Git Commit Helper</strong>
+  - Visual builder for Conventional Commits with scope, description, and breaking change flags.
+  - Step-by-step CLI command snippets (`git status`, `git add .`, `git commit -m "..."`, `git push origin main`).
+- <strong>🔍 Open-Source Repository Auditor</strong>
+  - Audit public repositories for health standards: `CONTRIBUTING.md`, license, issue templates, CI badges, and documentation completeness.
+- <strong>⚔️ Profile PvP Battle & Wrapped</strong>
+  - Compare two developer profiles head-to-head or generate shareable GitHub Wrapped slides.
+- <strong>🎨 Embeddable Dynamic SVG Badges</strong>
+  - Serverless API endpoint (`/api/badge`) to render live status cards directly on GitHub profile READMEs.
 
 ---
 
-## 🎮 How it works (deep but still readable)
+## 🛠️ Tech Stack & Architecture
 
-1. Open the app and enter a <strong>GitHub username</strong> (public mode) or sign in with GitHub (OAuth).
-2. The backend fetches your GitHub profile, repositories, commit/PR counts, and contribution activity.
-3. The app converts those metrics into RPG-style stats: <strong>class, rank, power level</strong>, a <strong>skill tree</strong>, and a <strong>quest log</strong>.
-4. Go to <strong>README Generator</strong> and export a themed <code>README.md</code> for your GitHub profile (copy or download).
-
-
----
-
-## 🎮 Features & Gameplay
-
-1. **GitHub OAuth Login & Public Search**
-
-   - Click "Sign in with GitHub" to securely exchange authentication codes for an access token via `/api/github`.
-   - Fetches profile info, repositories, commit counts, and merged pull request totals.
-   - Parses the active event stream to calculate a real contribution streak.
-   - **Fallback**: Enter any public username to compile profile details instantly without signing in.
-
-2. **Interactive RPG Dashboard**
-   - **Identity Panel**: Visualizes developer rank (e.g. Diamond, Gold, Silver), guild (company), custom specialization, and level.
-   - **Combat Stats Grid**: Commits, merged PRs, stars earned, and streak days translated to game statistics.
-   - **Achievement Vault**: Sequential loading cards displaying milestones (e.g. Code Crusader, Guild Leader, Flame Keeper).
-   - **Quest Log**: Visual quest cards representing repositories (mapped to Unlocked, Active, or Locked statuses with difficulty classes).
-   - **Skill Tree**: Progress meters showing language masteries (calculated from repository bytes) alongside engineering lifecycle skills (Git, CI/CD, Testing).
-   - **Diagnostics Performance Report**: Formulates strengths, weaknesses, missing skills, and next recommended quests.
-
-3. **Dynamic Visual Themes**
-   - Five prebuilt dashboard themes: **Gaming 🎮**, **Cute 🌸**, **Cloud ☁️**, **Cyberpunk ⚡**, and **Minimalist 🖤**.
-   - Redefines design tokens (backgrounds, fonts, shadows, borders, and corner rounding) to visually transform the interface instantly.
-
-4. **README.md Generator**
-   - Renders a markdown string based on your active dashboard statistics, skills, achievements, and selected theme.
-   - Features dynamic text-based progress bars, shields.io badges, and quest logs.
-   - Provides options to copy to clipboard or download as a `.md` file.
-
-5. **Repository Analyzer (Advisory System)**
-   - Analyze any public repository link instantly.
-   - Extracts top-level directory structure and evaluates community standards (README, License, Description, Live Deployment URL).
-   - Instead of just displaying raw data, the Analyzer acts as an **Advisory System**, generating actionable guidance on how to improve the repository's health, SEO, and developer experience.
+- **Frontend**: React 19, TypeScript 6, Vite 8, Recharts (Radar charts), React Markdown, Rehype Raw.
+- **Styling**: Native Vanilla GitHub Dark Theme CSS system (`#0d1117`, `#161b22`, `#238636`, `#58a6ff`).
+- **Serverless API Layer** (`/api`):
+  - `/api/github.ts` — Fetches profile metadata, repositories, PR ratios, commit history from GitHub REST API.
+  - `/api/readme.ts` — Serverless Markdown generator engine.
+  - `/api/badge.ts` — Dynamic SVG card generator for profile embeds.
+  - `/api/repo.ts` — Repository health auditor.
 
 ---
 
-## 📁 System Architecture & Directory Structure
+## 💻 Quick Start & Running Locally
 
-```text
-├── api/                          # Vercel Serverless Backend Functions (Node.js)
-│   ├── github.ts                 # Fetches GitHub profile details, events, and repo stats
-│   ├── rating.ts                 # Evaluates profile completeness, consistency, and impact scores
-│   └── readme.ts                 # Compiles themed markdown layouts (5 prebuilt styles)
-├── src/
-│   ├── components/               # React Presentation & Feature Widgets
-│   │   ├── AchievementVault.tsx  # Grid of developer milestones
-│   │   ├── AnalysisReport.tsx    # Diagnostic panel containing strengths & growth recommendations
-│   │   ├── OriginSelector.tsx    # Interactive character creator for theme previews
-│   │   ├── ProfilePanel.tsx      # Main character avatar, rank, and XP progress bar
-│   │   ├── QuestBoard.tsx        # Repositories styled as active/locked/unlocked quests
-│   │   ├── ReadmePanel.tsx       # Live README generator, preview, copy, and download actions
-│   │   ├── SideNav.tsx           # Sticky left-hand navigation linking page anchors
-│   │   ├── SkillTree.tsx         # Skill progression nodes with visual meters
-│   │   └── StatPanel.tsx         # Matrix of combat tiles displaying commits, stars, and PRs
-│   ├── data/                     # Content registries
-│   │   ├── character.ts          # Central developer profile (initial fallback data)
-│   │   └── origins.ts            # Archetypes data registry for the Character Creator
-│   ├── styles/                   # Modular CSS stylesheets
-│   │   ├── base.css              # Reset rules, layouts, uploader, rating meters, and loading states
-│   │   ├── components.css        # Interactive grids, cards, transitions, and hover animations
-│   │   └── tokens.css            # Scoped variables defining Gaming, Cute, Cloud, Cyberpunk, and Minimalist overrides
-│   ├── types/                    # Core TypeScript contracts
-│   │   └── profile.ts            # Data models
-│   ├── App.tsx                   # Central React composition containing state coordinates
-│   ├── index.css                 # Style entry point importing Google Web Fonts
-│   └── main.tsx                  # React mounting node
-├── index.html                    # Root HTML template
-├── package.json                  # Scripts and dependencies configurations
-├── tsconfig.json                 # TypeScript compiler configuration
-├── vercel.json                   # Vercel SPA rewrites and API routing configuration
-└── vite.config.ts                # Intercepts /api/* requests to execute handlers locally in development
-```
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/nandinigoyaldev/Developer-rpg-profile-generator.git
+   cd Developer-rpg-profile-generator
+   ```
+
+2. **Install dependencies**:
+   ```bash
+   npm install
+   ```
+
+3. **Start local dev server**:
+   ```bash
+   npm run dev
+   ```
+   Open `http://localhost:5173` in your browser.
+
+4. **Build for production**:
+   ```bash
+   npm run build
+   ```
 
 ---
 
-## 🛠️ Local Development & Setup
+## 🌐 API Endpoints Overview
 
-### 1. Prerequisites
-- **Node.js**: `v20+` or `v24+` recommended.
-- **nvm** (Optional): Used to switch node environments.
-
-### 2. Environment Configuration
-Create a `.env` or `.env.local` file at the root based on [`.env.example`](./.env.example):
-
-```bash
-# Register a GitHub OAuth App to obtain client keys:
-# Homepage URL = http://localhost:5173
-# Callback URL = http://localhost:5173
-VITE_GITHUB_CLIENT_ID=your_github_client_id_here
-GITHUB_CLIENT_SECRET=your_github_client_secret_here
-
-# Optional: Add a Personal Access Token to avoid public API rate limits:
-GITHUB_TOKEN=your_personal_access_token_here
-```
-
-### 3. Execution Commands
-Run these commands from the root directory:
-
-- **Start Dev Server**
-  ```bash
-  npm run dev
-  ```
-  Starts Vite on **http://localhost:5173** and serves the SPA + local `/api/*` routes.
-
-- **Build (production bundle)**
-  ```bash
-  npm run build
-  ```
-  Runs `tsc -b` then builds the app into `dist/`.
-
-- **Lint**
-  ```bash
-  npm run lint
-  ```
-
-- **Preview production build**
-  ```bash
-  npm run preview
-  ```
-
+| Endpoint | Method | Description |
+| :--- | :--- | :--- |
+| `/api/github?username={user}` | `GET` | Fetches GitHub profile details, commits, PRs, and repos. |
+| `/api/readme` | `POST` | Generates formatted profile README markdown. |
+| `/api/badge?username={user}` | `GET` | Returns embeddable SVG status card. |
+| `/api/repo?url={url}` | `POST` | Audits open-source repository health. |
 
 ---
 
-## 🚀 Deployment to Vercel
+## 📄 License
 
-1. Connect the repo in your Vercel dashboard.
-2. Vercel builds the React SPA and deploys the `/api/*` serverless handlers.
-3. Add env vars in **Vercel → Project Settings → Environment Variables**:
-   - `VITE_GITHUB_CLIENT_ID`
-   - `GITHUB_CLIENT_SECRET`
-   - `GITHUB_TOKEN` (optional but recommended to reduce rate limits)
-4. Deploy.
-
+Distributed under the MIT License. Built for open-source contributors & hackathons with ❤️.

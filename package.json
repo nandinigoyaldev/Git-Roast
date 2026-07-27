@@ -1,7 +1,8 @@
 {
-  "name": "analysis",
+  "name": "git-roast",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "Playful full-stack GitHub profile roaster, README generator & open-source mentor",
   "type": "module",
   "scripts": {
     "dev": "vite",
