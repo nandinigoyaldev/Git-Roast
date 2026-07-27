@@ -1,5 +1,6 @@
 <div align="center">
   <img src="https://capsule-render.vercel.app/api?type=waving&height=220&color=0:0d1117,100:238636&text=GitRoast%20%F0%9F%94%A5&fontSize=50&fontColor=ffffff&animation=fadeIn&fontAlignY=35&descAlignY=55&desc=Playful%20GitHub%20Profile%20Roaster%20%26%20Open%20Source%20Mentor" alt="GitRoast Banner"/>
+  
 
   <h1>GitRoast 🔥 — Playful GitHub Profile Roaster & Open Source Mentor</h1>
 
