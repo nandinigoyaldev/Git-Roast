@@ -229,19 +229,7 @@ function App() {
         /* 2. MAIN DASHBOARD PAGE */
         <>
           {/* GitHub Top Navigation Bar */}
-          <header style={{
-            backgroundColor: '#161b22',
-            padding: '12px 24px',
-            borderBottom: '1px solid #30363d',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            flexWrap: 'wrap',
-            gap: '16px',
-            position: 'sticky',
-            top: 0,
-            zIndex: 100
-          }}>
+          <header className="gr-header">
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer' }} onClick={() => setIsLoaded(false)}>
               <svg height="32" viewBox="0 0 16 16" width="32" fill="#ffffff">
                 <path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"></path>
@@ -257,8 +245,8 @@ function App() {
             </div>
 
             {/* Global User Search Bar */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', flex: 1, maxWidth: '540px' }}>
-              <div style={{ position: 'relative', flex: 1, minWidth: '200px' }}>
+            <div className="gr-search-bar">
+              <div style={{ position: 'relative', flex: 1, minWidth: '160px' }}>
                 <input
                   type="text"
                   placeholder="Enter GitHub username (e.g. torvalds)..."
@@ -267,7 +255,7 @@ function App() {
                   onKeyDown={(e) => e.key === 'Enter' && handleGenerateProfile()}
                   style={{
                     width: '100%',
-                    height: '34px',
+                    height: '36px',
                     padding: '0 12px 0 32px',
                     borderRadius: '6px',
                     border: '1px solid #30363d',
@@ -277,14 +265,14 @@ function App() {
                   }}
                   aria-label="GitHub Username Search"
                 />
-                <span style={{ position: 'absolute', left: '10px', top: '8px', color: '#8b949e', fontSize: '0.85rem' }}>🔍</span>
+                <span style={{ position: 'absolute', left: '10px', top: '9px', color: '#8b949e', fontSize: '0.85rem' }}>🔍</span>
               </div>
 
               <button
                 onClick={() => handleGenerateProfile()}
                 disabled={loading}
                 style={{
-                  height: '34px',
+                  height: '36px',
                   padding: '0 14px',
                   borderRadius: '6px',
                   border: 'none',
@@ -314,10 +302,11 @@ function App() {
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
-                gap: '6px'
+                gap: '6px',
+                whiteSpace: 'nowrap'
               }}
             >
-              🔑 Login Panel / Switch User
+              🔑 Switch User
             </button>
           </header>
 
@@ -336,27 +325,19 @@ function App() {
           )}
 
           {/* Main Content Area */}
-          <div style={{ display: 'flex', justifyContent: 'center', backgroundColor: '#0d1117', flex: 1 }}>
-            <div style={{ width: '100%', maxWidth: '1380px', display: 'flex', flexDirection: 'row', padding: '24px', gap: '24px', flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', justifyContent: 'center', backgroundColor: '#0d1117', flex: 1, width: '100%' }}>
+            <div className="gr-layout-container">
               
               {/* Left Sidebar Profile */}
-              <div style={{ width: '296px', minWidth: '280px', flexShrink: 0 }}>
+              <div className="gr-sidebar-col">
                 <SidebarProfile profile={profile} />
               </div>
 
               {/* Right Main Content */}
-              <div style={{ flex: 1, minWidth: 0 }}>
+              <div className="gr-main-col">
                 
                 {/* Nav Tabs */}
-                <div style={{
-                  borderBottom: '1px solid #30363d',
-                  marginBottom: '24px',
-                  display: 'flex',
-                  gap: '8px',
-                  overflowX: 'auto',
-                  whiteSpace: 'nowrap',
-                  paddingBottom: '4px'
-                }}>
+                <div className="gr-tab-row">
                   {[
                     { id: 'judge', label: '🔥 Profile Roast & Audit', icon: '⚖️' },
                     { id: 'readme', label: '📝 README Generator', icon: '📄' },
