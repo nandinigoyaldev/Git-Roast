@@ -21,7 +21,7 @@
   <br />
 
   <div style="display: flex; gap: 8px; justify-content: center;">
-    <a href="https://github.com/nandinigoyaldev/Developer-rpg-profile-generator" target="_blank" rel="noreferrer">
+    <a href="https://github.com/nandinigoyaldev/Git-Roast" target="_blank" rel="noreferrer">
       <img src="https://img.shields.io/badge/GitHub-GitRoast-238636?style=for-the-badge&logo=github" alt="GitHub Repo"/>
     </a>
     <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
