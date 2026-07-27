@@ -11,13 +11,12 @@ import { RepoAnalyzerPanel } from './components/RepoAnalyzerPanel';
 import { ProfileJudgePanel } from './components/ProfileJudgePanel';
 import { PvPBattlePanel } from './components/PvPBattlePanel';
 import { GithubWrappedPanel } from './components/GithubWrappedPanel';
-import { GitCommitHelper } from './components/GitCommitHelper';
 import { characterProfile } from './data/character';
 import type { DeveloperProfile } from './types/profile';
 
 function App() {
   const [profile, setProfile] = useState<DeveloperProfile | any>(characterProfile);
-  const [activeTab, setActiveTab] = useState<'overview' | 'judge' | 'readme' | 'git-commit' | 'repo' | 'pvp' | 'wrapped'>('judge');
+  const [activeTab, setActiveTab] = useState<'overview' | 'judge' | 'readme' | 'repo' | 'pvp' | 'wrapped'>('judge');
   const [isLoaded, setIsLoaded] = useState<boolean>(false); // Start on Login Panel
   const [usernameInput, setUsernameInput] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
@@ -114,7 +113,7 @@ function App() {
                 GitRoast 🔥
               </h1>
               <p style={{ fontSize: '0.92rem', color: '#8b949e', margin: 0, lineHeight: 1.4 }}>
-                Playful GitHub Profile Roaster & Open Source Mentor. Enter your GitHub handle to analyze your stats, get your impression grade, and build impressive READMEs.
+                Playful GitHub Profile Roaster & Open Source Auditor. Enter your GitHub handle to perform a savage roast, see what you are missing, and generate an impressive profile README.
               </p>
             </div>
 
@@ -176,7 +175,7 @@ function App() {
                   transition: 'background 0.2s ease'
                 }}
               >
-                {loading ? 'Analyzing GitHub Profile...' : '🔥 Roast & Analyze Profile'}
+                {loading ? 'Analyzing GitHub Profile...' : '🔥 Roast & Audit Profile'}
               </button>
 
               <div style={{ display: 'flex', alignItems: 'center', margin: '8px 0', gap: '12px' }}>
@@ -252,7 +251,7 @@ function App() {
                   GitRoast 🔥
                 </span>
                 <span style={{ fontSize: '0.7rem', color: '#8b949e', fontWeight: 500 }}>
-                  Profile Roaster & Open Source Mentor
+                  Profile Roaster & Open Source Auditor
                 </span>
               </div>
             </div>
@@ -359,9 +358,8 @@ function App() {
                   paddingBottom: '4px'
                 }}>
                   {[
-                    { id: 'judge', label: '🔥 Profile Roast & Judge', icon: '⚖️' },
+                    { id: 'judge', label: '🔥 Profile Roast & Audit', icon: '⚖️' },
                     { id: 'readme', label: '📝 README Generator', icon: '📄' },
-                    { id: 'git-commit', label: '💻 Git Commit Helper', icon: '💡' },
                     { id: 'overview', label: '📊 Combat Stats Overview', icon: '📈' },
                     { id: 'repo', label: '🔍 Open-Source Repo Audit', icon: '📦' },
                     { id: 'pvp', label: '⚔️ Profile PvP Battle', icon: '🎮' },
@@ -401,12 +399,7 @@ function App() {
                   <ReadmePanel profile={profile} />
                 )}
 
-                {/* TAB 3: GIT COMMIT HELPER */}
-                {activeTab === 'git-commit' && (
-                  <GitCommitHelper />
-                )}
-
-                {/* TAB 4: COMBAT STATS OVERVIEW */}
+                {/* TAB 3: COMBAT STATS OVERVIEW */}
                 {activeTab === 'overview' && (
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
                     <SkillRadarChart profile={profile} />
@@ -418,17 +411,17 @@ function App() {
                   </div>
                 )}
 
-                {/* TAB 5: REPO ANALYZER */}
+                {/* TAB 4: REPO ANALYZER */}
                 {activeTab === 'repo' && (
                   <RepoAnalyzerPanel />
                 )}
 
-                {/* TAB 6: PVP BATTLE */}
+                {/* TAB 5: PVP BATTLE */}
                 {activeTab === 'pvp' && (
                   <PvPBattlePanel />
                 )}
 
-                {/* TAB 7: GITHUB WRAPPED */}
+                {/* TAB 6: GITHUB WRAPPED */}
                 {activeTab === 'wrapped' && (
                   <GithubWrappedPanel profile={profile} />
                 )}
