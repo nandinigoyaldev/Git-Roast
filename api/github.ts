@@ -5,6 +5,10 @@ import type { DeveloperProfile, Stat, Achievement, RepositoryQuest, SkillNode } 
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN || '';
 
 export default async function handler(req: any, res: any) {
+  res.setHeader?.('Content-Security-Policy', "default-src 'self'");
+  res.setHeader?.('X-Frame-Options', 'DENY');
+  res.setHeader?.('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
+
   const { code, username } = req.query;
 
   try {

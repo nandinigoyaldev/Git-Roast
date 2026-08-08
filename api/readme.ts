@@ -2,6 +2,10 @@ import type { DeveloperProfile } from '../src/types/profile';
 import { DynamicRenderer, DynamicBlueprint } from '../src/lib/engine/Renderer';
 
 export default async function handler(req: any, res: any) {
+  res.setHeader?.('Content-Security-Policy', "default-src 'self'");
+  res.setHeader?.('X-Frame-Options', 'DENY');
+  res.setHeader?.('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
+
   if (req.method !== 'POST') {
     res.status(405).json({ error: 'Method Not Allowed' });
     return;

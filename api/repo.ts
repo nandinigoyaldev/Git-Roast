@@ -3,6 +3,10 @@ import type { VercelRequest, VercelResponse } from '@vercel/node';
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN || '';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
+  res.setHeader('Content-Security-Policy', "default-src 'self'");
+  res.setHeader('X-Frame-Options', 'DENY');
+  res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
+
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }

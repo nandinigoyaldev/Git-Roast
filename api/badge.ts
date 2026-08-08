@@ -4,6 +4,10 @@ import type { VercelRequest, VercelResponse } from '@vercel/node';
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   const { username } = req.query;
 
+  res.setHeader('Content-Security-Policy', "default-src 'self'");
+  res.setHeader('X-Frame-Options', 'DENY');
+  res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
+
   if (!username || typeof username !== 'string') {
     return res.status(400).send('Username is required');
   }
