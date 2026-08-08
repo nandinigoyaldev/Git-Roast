@@ -22,14 +22,14 @@ export function SidebarProfile({ profile }: SidebarProfileProps) {
             objectFit: 'cover'
           }}
         />
-        <h1 style={{ marginBottom: '12px', margin: 0 }}>
+        <h2 style={{ marginBottom: '12px', margin: 0 }}>
           <div style={{ fontSize: '1.5rem', fontWeight: 700, color: 'var(--text-main)', lineHeight: 1.2 }}>
             {profile.name || profile.login}
           </div>
           <div style={{ fontSize: '1.1rem', fontWeight: 300, color: 'var(--text-muted)', lineHeight: 1.2, marginTop: '2px' }}>
             @{profile.login}
           </div>
-        </h1>
+        </h2>
 
         <p style={{ fontSize: '0.9rem', color: 'var(--text-main)', margin: '0 0 16px 0', lineHeight: 1.4 }}>
           {profile.bio || 'No bio provided on GitHub.'}

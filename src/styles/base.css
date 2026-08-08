@@ -3,6 +3,21 @@
   box-sizing: border-box;
 }
 
+/* Touch Target Accessibility (WCAG 2.1 SC 2.5.5 / WCAG 2.2 SC 2.5.8) */
+button,
+a,
+[role="button"] {
+  min-width: 44px;
+  min-height: 44px;
+}
+
+/* Ensure inline text links in paragraphs flow naturally without forcing square dimensions */
+p a,
+li a:not([role="button"]) {
+  min-width: auto;
+  min-height: auto;
+}
+
 /* Media elements must never overflow their containers */
 img, video, iframe, embed, object {
   max-width: 100%;

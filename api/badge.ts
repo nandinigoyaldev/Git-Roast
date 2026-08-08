@@ -51,7 +51,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     `;
 
     res.setHeader('Content-Type', 'image/svg+xml');
-    res.setHeader('Cache-Control', 'public, max-age=3600');
+    res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
     res.status(200).send(svg);
   } catch (error: any) {
     res.status(500).send('Error generating badge');

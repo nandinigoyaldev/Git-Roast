@@ -124,6 +124,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       updatedAt: repoData.updated_at,
     };
 
+    res.setHeader('Cache-Control', 'public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400');
     return res.status(200).json(result);
   } catch (error: any) {
     console.error('Error in repo analyzer API:', error);
